@@ -2,7 +2,6 @@ package com.mindorks.example.coroutines.demo
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.mindorks.example.coroutines.democoroutine.MySuperClass
-import com.mindorks.example.coroutines.utils.getOrAwaitValue
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
@@ -37,13 +36,19 @@ class MySuperClassTest {
     }
 
     @Test
+    fun `Case two with runBlocking`() {
+        runBlocking {
+            mySuperClass.addTwoNumbers()
+        }
+        assertEquals(6,mySuperClass.result.value)
+
+    }
+
+    @Test
     fun testAddTwoNumbers() {
         testCoroutineDispatcher.runBlockingTest {
             mySuperClass.addTwoNumbers()
-
-            mySuperClass.result.observeForever {
-                assertEquals(6, it)
-            }
         }
+        assertEquals(6,mySuperClass.result.value)
     }
 }
