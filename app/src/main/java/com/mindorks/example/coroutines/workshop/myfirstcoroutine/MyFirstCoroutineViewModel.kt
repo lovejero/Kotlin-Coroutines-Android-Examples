@@ -1,22 +1,23 @@
 package com.mindorks.example.coroutines.workshop.myfirstcoroutine
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mindorks.example.coroutines.data.api.ApiHelper
-import com.mindorks.example.coroutines.data.local.DatabaseHelper
+import com.mindorks.example.coroutines.utils.BACKGROUND
 
-class MyFirstCoroutineViewModel(
-    private val apiHelper: ApiHelper,
-    private val dbHelper: DatabaseHelper
-) : ViewModel() {
-    init {
-        doSomethingInBackground()
-    }
+class MyFirstCoroutineViewModel() : ViewModel() {
 
-    private fun doSomethingInBackground() {
+    private var tapCount = 0
+    private val _taps = MutableLiveData<String>()
+    val taps: LiveData<String>
+        get() = _taps
 
-    }
-
-    fun doSomething() {
-        return  doSomethingInBackground()
+    fun updateTaps() {
+        // TODO: Convert updateTaps to use coroutines
+        tapCount++
+        BACKGROUND.submit {
+            Thread.sleep(1_000)
+            _taps.postValue("$tapCount taps")
+        }
     }
 }
