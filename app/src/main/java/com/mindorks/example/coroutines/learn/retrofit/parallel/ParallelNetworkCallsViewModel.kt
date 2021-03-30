@@ -8,13 +8,12 @@ import com.mindorks.example.coroutines.data.api.ApiHelper
 import com.mindorks.example.coroutines.data.local.DatabaseHelper
 import com.mindorks.example.coroutines.data.model.ApiUser
 import com.mindorks.example.coroutines.utils.Resource
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class ParallelNetworkCallsViewModel(
     private val apiHelper: ApiHelper,
-    private val dbHelper: DatabaseHelper
+    private val dbHelper: DatabaseHelper,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
     private val users = MutableLiveData<Resource<List<ApiUser>>>()
@@ -24,7 +23,7 @@ class ParallelNetworkCallsViewModel(
     }
 
     private fun fetchUsers() {
-        viewModelScope.launch {
+        val job = viewModelScope.launch(dispatcher) {
             users.postValue(Resource.loading(null))
             try {
                 // coroutineScope is needed, else in case of any network error, it will crash
@@ -42,8 +41,21 @@ class ParallelNetworkCallsViewModel(
                     users.postValue(Resource.success(allUsersFromApi))
                 }
             } catch (e: Exception) {
-                users.postValue(Resource.error("Something Went Wrong", null))
+                val newMessage = e.message ?: ""
+                users.postValue(Resource.error(newMessage, null))
             }
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            // Do something
+        }
+        //job.cancel("Cancel single job")
+        //viewModelScope.cancel("Cancel all scope jobs")
+
+        viewModelScope.launch {
+            //job.join()
+            delay(1001)
+            users.postValue(Resource.error("Nueva Coroutine iniciada", null))
         }
     }
 

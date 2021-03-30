@@ -18,6 +18,7 @@ import com.mindorks.example.coroutines.learn.base.ApiUserAdapter
 import com.mindorks.example.coroutines.utils.Status
 import com.mindorks.example.coroutines.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_recycler_view.*
+import kotlinx.coroutines.Dispatchers
 
 class ParallelNetworkCallsActivity : AppCompatActivity() {
 
