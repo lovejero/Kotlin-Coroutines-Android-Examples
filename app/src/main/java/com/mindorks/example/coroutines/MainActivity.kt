@@ -62,4 +62,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this@MainActivity, TwoLongRunningTasksActivity::class.java))
     }
 
+    fun startMyFirstCoroutineActivity(view: View) {
+        startActivity(Intent(this@MainActivity, TwoLongRunningTasksActivity::class.java))
+    }
 }
