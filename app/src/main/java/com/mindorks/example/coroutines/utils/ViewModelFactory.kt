@@ -14,6 +14,7 @@ import com.mindorks.example.coroutines.learn.room.RoomDBViewModel
 import com.mindorks.example.coroutines.learn.task.onetask.LongRunningTaskViewModel
 import com.mindorks.example.coroutines.learn.task.twotasks.TwoLongRunningTasksViewModel
 import com.mindorks.example.coroutines.learn.timeout.TimeoutViewModel
+import com.mindorks.example.coroutines.scopes.ScopesDemoViewModel
 
 class ViewModelFactory(private val apiHelper: ApiHelper, private val dbHelper: DatabaseHelper) :
     ViewModelProvider.Factory {
@@ -48,6 +49,9 @@ class ViewModelFactory(private val apiHelper: ApiHelper, private val dbHelper: D
         }
         if (modelClass.isAssignableFrom(IgnoreErrorAndContinueViewModel::class.java)) {
             return IgnoreErrorAndContinueViewModel(apiHelper, dbHelper) as T
+        }
+        if (modelClass.isAssignableFrom(ScopesDemoViewModel::class.java)) {
+            return ScopesDemoViewModel(apiHelper) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }
