@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mindorks.example.coroutines.utils.BACKGROUND
 
-class MyFirstCoroutineViewModel() : ViewModel() {
+class MyFirstCoroutineViewModel: ViewModel() {
 
     private var tapCount = 0
     private val _taps = MutableLiveData<String>()
@@ -13,10 +13,10 @@ class MyFirstCoroutineViewModel() : ViewModel() {
         get() = _taps
 
     fun updateTaps() {
-        // TODO: Convert updateTaps to use coroutines
         tapCount++
         BACKGROUND.submit {
             Thread.sleep(1_000)
+//            _taps.value = "$tapCount taps"
             _taps.postValue("$tapCount taps")
         }
     }
