@@ -14,6 +14,7 @@ import com.mindorks.example.coroutines.learn.room.RoomDBViewModel
 import com.mindorks.example.coroutines.learn.task.onetask.LongRunningTaskViewModel
 import com.mindorks.example.coroutines.learn.task.twotasks.TwoLongRunningTasksViewModel
 import com.mindorks.example.coroutines.learn.timeout.TimeoutViewModel
+import com.mindorks.example.coroutines.workshop.myfirstcoroutine.MyFirstCoroutineViewModel
 
 class ViewModelFactory(private val apiHelper: ApiHelper, private val dbHelper: DatabaseHelper) :
     ViewModelProvider.Factory {
@@ -45,6 +46,9 @@ class ViewModelFactory(private val apiHelper: ApiHelper, private val dbHelper: D
         }
         if (modelClass.isAssignableFrom(TwoLongRunningTasksViewModel::class.java)) {
             return TwoLongRunningTasksViewModel(apiHelper, dbHelper) as T
+        }
+        if (modelClass.isAssignableFrom(MyFirstCoroutineViewModel::class.java)) {
+            return MyFirstCoroutineViewModel() as T
         }
         if (modelClass.isAssignableFrom(IgnoreErrorAndContinueViewModel::class.java)) {
             return IgnoreErrorAndContinueViewModel(apiHelper, dbHelper) as T

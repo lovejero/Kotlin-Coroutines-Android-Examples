@@ -14,6 +14,7 @@ import com.mindorks.example.coroutines.learn.room.RoomDBActivity
 import com.mindorks.example.coroutines.learn.task.onetask.LongRunningTaskActivity
 import com.mindorks.example.coroutines.learn.task.twotasks.TwoLongRunningTasksActivity
 import com.mindorks.example.coroutines.learn.timeout.TimeoutActivity
+import com.mindorks.example.coroutines.workshop.myfirstcoroutine.MyFirstCoroutineActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -62,4 +63,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this@MainActivity, TwoLongRunningTasksActivity::class.java))
     }
 
+    fun startMyFirstCoroutineActivity(view: View) {
+        startActivity(Intent(this@MainActivity, MyFirstCoroutineActivity::class.java))
+    }
 }
